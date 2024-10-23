@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://thymeleaf.org">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,19 @@
 </head>
 <body>
     <h1>Get things done</h1>
+
+<div>
+    <form method="post" th:action="@{/new-item}" th:object="${newTodo}">
+        <input type="text" th:field="*{name}">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
     <ul>
-        <li th:each="item : ${todoItems}">Testa</li>
-        
+        <li th:id="${item.id}" th:each="item : ${todoItems}">
+            <span th:text="${item.name}"></span>
+            <a th:href="@{/remove-item/{itemId}(itemId=${item.id})}">[x]</a>
+        </li>
     </ul>
 </body>
 </html>
